@@ -4,6 +4,7 @@ import './global.css';
 import styles from './App.module.css';
 import { Header } from './components/Header';
 import { Siderbar } from './components/Sidebar';
+import { Post } from './components/Post';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header />
       <div className={styles.wrapper}>
         <Siderbar />
-        <main>main</main>
+        <Post />
       </div>
     </>
   );
