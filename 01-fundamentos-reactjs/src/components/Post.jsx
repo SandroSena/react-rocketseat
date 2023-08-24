@@ -31,14 +31,21 @@ export const Post = ({ author, publishedAt, content }) => {
 
   const handleNewCommentChange = () => {
     setNewCommentText(event.target.value);
+    event.target.setCustomValidity('');
+  };
+
+  const handleCommentValidation = () => {
+    event.target.setCustomValidity('Esse campo é obrigatorio');
   };
 
   const deleteComment = (commentToDelete) => {
-    const commentsWithoutDeletedOne = comments.filter(comment => {
+    const commentsWithoutDeletedOne = comments.filter((comment) => {
       return comment !== commentToDelete;
-    })
-    setComments(commentsWithoutDeletedOne)
+    });
+    setComments(commentsWithoutDeletedOne);
   };
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -81,10 +88,14 @@ export const Post = ({ author, publishedAt, content }) => {
           placeholder='Deixe um comentario'
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleCommentValidation}
+          required
         />
 
         <footer>
-          <button type='submit'>Publicar</button>
+          <button type='submit' disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
