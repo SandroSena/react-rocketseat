@@ -4,11 +4,12 @@ import './global.css';
 import { Header } from './components/Header';
 import { AddTask } from './components/AddTask';
 import { TasksList } from './components/TasksList';
+import { Tasks } from './components/Tasks';
 
 const tasks = [
   {
     id: 1,
-    title: 'Completar o curso de React da Rocketseat',
+    content: ['Completar o curso de React da Rocketseat'],
     hasCompleted: false,
   },
 ];
@@ -18,7 +19,18 @@ function App() {
     <div className='mainAppWrapper'>
       <Header />
       <AddTask />
-      <TasksList />
+      <div>
+        <TasksList />
+        {tasks.map((task) => {
+          return (
+            <Tasks
+              key={task.id}
+              content={task.content}
+              hasCompleted={task.hasCompleted}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
