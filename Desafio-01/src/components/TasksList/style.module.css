@@ -1,12 +1,12 @@
 .mainTasksWrapper {
   background: #1a1a1a;
-  height: 100vh;
+  flex: 1;
 }
 
 .tasksTitlesWrapper {
   display: flex;
-  justify-content: space-around;
-  margin: 0px 54rem;
+  justify-content: space-evenly;
+  margin: 0 30rem;
   padding-top: 6.5rem;
   @media screen and (max-width: 600px) {
     margin: 0;
