@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #000;
+  width: auto;
+  height: 200px;
+}
+
+.rocket {
+  width: 22px;
+  height: 36px;
+}
+
+.to {
+  color: #4ea8de;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  margin-left: 1rem;
+}
+
+.do {
+  color: #5e60ce;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}

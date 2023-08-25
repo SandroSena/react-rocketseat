@@ -1,0 +1,54 @@
+.mainTasksWrapper {
+  background: #1a1a1a;
+  height: 100vh;
+}
+
+.tasksTitlesWrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 0px 54rem;
+  padding-top: 6.5rem;
+  @media screen and (max-width: 600px) {
+    margin: 0;
+  }
+}
+
+.createdTasks {
+  color: #4ea8de;
+  font-family: Inter;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.finishTasks {
+  color: #8284fa;
+  font-family: Inter;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.textTasksSpan {
+  color: #d9d9d9;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  border-radius: 999px;
+  background: #333;
+
+  padding: 2px 8px;
+  margin-left: 1rem;
+}
+
+.tasksTextsWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
