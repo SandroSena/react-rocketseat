@@ -25,12 +25,12 @@ span > img {
   justify-content: center;
   align-items: center;
 
-  font-size: 1.6rem;
   border-radius: 8px;
   background: #1e6f9f;
   padding: 16px;
   margin-top: -1.5rem;
   margin-left: 0.5rem;
+  border: none;
 
   font-family: Inter;
   font-size: 14px;
