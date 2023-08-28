@@ -1,20 +1,29 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './style.module.css';
 import plusIcon from './../../assets/plus.svg';
+import { Task } from '../../App';
 
-export const AddTask = () => {
-  const [taskList, setTaskList] = useState(['']);
-  const [createNewTask, setCreateNewTask] = useState('');
+interface AddTaskProps {
+  onAddTask: (task: Task) => void;
+}
+
+export const AddTask = ({ onAddTask }: AddTaskProps) => {
+  const [createNewTaskContent, setCreateNewTaskContent] = useState('');
 
   const handleCreateTask = (e: FormEvent) => {
     e.preventDefault();
 
-    setTaskList([...taskList, createNewTask]);
+    onAddTask({
+      id: Math.random(),
+      content: createNewTaskContent,
+      hasCompleted: false,
+    });
+
+    setCreateNewTaskContent('');
   };
 
   const handleNewTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCreateNewTask(e.target.value);
-    console.log(e.target.value);
+    setCreateNewTaskContent(e.target.value);
   };
 
   return (
@@ -24,7 +33,7 @@ export const AddTask = () => {
           type='text'
           onChange={handleNewTaskChange}
           placeholder='Adicione uma nova tarefa'
-          value={createNewTask}
+          value={createNewTaskContent}
         />
         <button type='submit' className={styles.buttonCreate}>
           Criar

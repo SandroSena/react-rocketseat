@@ -47,3 +47,9 @@
   height: 24px;
   padding: 3.273px;
 }
+
+.completedTaskButton { 
+  border: none;
+  background: none;
+  cursor: pointer;
+}
