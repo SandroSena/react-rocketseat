@@ -17,13 +17,12 @@ const mockedTasks: Task[] = [
   {
     id: 1,
     content: 'Completar o curso de React da Rocketseat',
-    hasCompleted: false,
+    hasCompleted: true,
   },
   {
     id: 2,
-    content:
-      'Completar o curso para virar um bom programar e ganhar muito dinheiro!!!',
-    hasCompleted: true,
+    content: 'Completar o curso de React Native da Rocketseat',
+    hasCompleted: false,
   },
 ];
 
@@ -34,13 +33,30 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  const handleToogleCompletedTask = (taskId: number) => {
+    const updatedCompletedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          hasCompleted: !task.hasCompleted,
+        };
+      }
+      return task;
+    });
+
+    setTasks(updatedCompletedTasks);
+  };
 
   return (
     <div className='mainAppWrapper'>
       <Header />
       <AddTask onAddTask={(task) => setTasks([...tasks, task])} />
       <div>
-        <TasksList tasks={tasks} onDeleteTask={handleDeleteTask} />
+        <TasksList
+          tasks={tasks}
+          onDeleteTask={handleDeleteTask}
+          onCompleteTask={handleToogleCompletedTask}
+        />
       </div>
     </div>
   );

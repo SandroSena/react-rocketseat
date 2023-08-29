@@ -8,14 +8,24 @@ interface TasksProps {
   content: string;
   hasCompleted: boolean;
   onDeleteTask: (id: number) => void;
+  onCompleteTask: (id: number) => void;
 }
 
-export const Tasks = ({ id, content, hasCompleted, onDeleteTask }: TasksProps) => {
+export const Tasks = ({
+  id,
+  content,
+  hasCompleted,
+  onDeleteTask,
+  onCompleteTask,
+}: TasksProps) => {
   return (
     <div className={styles.tasksMainWrapper}>
       <div className={styles.taskWrapper}>
         {!hasCompleted ? (
-          <button className={styles.completedTaskButton}>
+          <button
+            className={styles.completedTaskButton}
+            onClick={() => onCompleteTask(id)}
+          >
             <img
               src={checkIcon}
               alt='check icon'
@@ -23,7 +33,10 @@ export const Tasks = ({ id, content, hasCompleted, onDeleteTask }: TasksProps) =
             />
           </button>
         ) : (
-          <button className={styles.completedTaskButton}>
+          <button
+            className={styles.completedTaskButton}
+            onClick={() => onCompleteTask(id)}
+          >
             <img
               src={checkedIcon}
               alt='checked icon'
