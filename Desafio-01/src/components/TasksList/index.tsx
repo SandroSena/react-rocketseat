@@ -4,9 +4,10 @@ import styles from './style.module.css';
 
 interface TaskListProps {
   tasks: Task[];
+  onDeleteTask: (id: number) => void;
 }
 
-export const TasksList = ({ tasks }: TaskListProps) => {
+export const TasksList = ({ tasks, onDeleteTask }: TaskListProps) => {
   const completedTasks = tasks.filter((task) => task.hasCompleted);
   const countCompletedTasks = completedTasks.length;
 
@@ -29,9 +30,10 @@ export const TasksList = ({ tasks }: TaskListProps) => {
       {tasks.map((task) => {
         return (
           <Tasks
-            key={task.id}
+            id={task.id}
             content={task.content}
             hasCompleted={task.hasCompleted}
+            onDeleteTask={(id) => onDeleteTask(id)}
           />
         );
       })}

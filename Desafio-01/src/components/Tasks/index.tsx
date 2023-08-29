@@ -4,11 +4,14 @@ import checkIcon from '../../assets/check.svg';
 import checkedIcon from '../../assets/checked.svg';
 
 interface TasksProps {
+  id: number;
   content: string;
   hasCompleted: boolean;
+  onDeleteTask: (id: number) => void;
+  onCompletedTask: (hasComplete: boolean) => void;
 }
 
-export const Tasks = ({ content, hasCompleted }: TasksProps) => {
+export const Tasks = ({ id, content, hasCompleted, onDeleteTask }: TasksProps) => {
   return (
     <div className={styles.tasksMainWrapper}>
       <div className={styles.taskWrapper}>
@@ -32,11 +35,16 @@ export const Tasks = ({ content, hasCompleted }: TasksProps) => {
         <p className={styles.taskText} key={content}>
           {content}
         </p>
-        <img
-          src={garbageIcon}
-          alt='delete icon'
-          className={styles.garbageIcon}
-        />
+        <button
+          className={styles.completedTaskButton}
+          onClick={() => onDeleteTask(id)}
+        >
+          <img
+            src={garbageIcon}
+            alt='delete icon'
+            className={styles.garbageIcon}
+          />
+        </button>
       </div>
     </div>
   );

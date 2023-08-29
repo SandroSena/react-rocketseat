@@ -30,12 +30,17 @@ const mockedTasks: Task[] = [
 function App() {
   const [tasks, setTasks] = useState([...mockedTasks]);
 
+  const handleDeleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+
   return (
     <div className='mainAppWrapper'>
       <Header />
       <AddTask onAddTask={(task) => setTasks([...tasks, task])} />
       <div>
-        <TasksList tasks={tasks} />
+        <TasksList tasks={tasks} onDeleteTask={handleDeleteTask} />
       </div>
     </div>
   );
