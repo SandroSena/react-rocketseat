@@ -8,7 +8,6 @@ interface TasksProps {
   content: string;
   hasCompleted: boolean;
   onDeleteTask: (id: number) => void;
-  onCompletedTask: (hasComplete: boolean) => void;
 }
 
 export const Tasks = ({ id, content, hasCompleted, onDeleteTask }: TasksProps) => {
