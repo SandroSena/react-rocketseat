@@ -5,22 +5,19 @@ import * as zod from 'zod';
 import { differenceInSeconds } from 'date-fns';
 
 import {
-  CountdownContainer,
-  FormContainer,
   HomeContainer,
-  MinutesAmountInput,
-  Separator,
   StartCountdownButton,
   StopCountdownButton,
-  TaskInput,
 } from './styles';
 import { useEffect, useState } from 'react';
+import { NewmCycleForm } from '../../components/NewCycleForm';
+import { Countdown } from '../../components/Countdown';
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
   minutesAmount: zod
     .number()
-    .min(5, 'O ciclo precisa ser de no minimo 5 minutos')
+    .min(1, 'O ciclo precisa ser de no minimo 5 minutos')
     .max(60, 'O ciclo precisa ser de no maximo 60 minutos'),
 });
 
@@ -37,6 +34,7 @@ interface Cycle {
   minutesAmount: number;
   startDate: Date;
   interruptedDate?: Date;
+  finishedDate?: Date;
 }
 
 export const Home = () => {
@@ -54,21 +52,41 @@ export const Home = () => {
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
+  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
+
   useEffect(() => {
     let interval: number;
 
     if (activeCycle) {
       interval = setInterval(() => {
-        setAmountSecondsPassed(
-          differenceInSeconds(new Date(), activeCycle.startDate)
+        const secondsDifference = differenceInSeconds(
+          new Date(),
+          activeCycle.startDate
         );
+
+        if (secondsDifference >= totalSeconds) {
+          setCycles(
+            cycles.map((cycle) => {
+              if (cycle.id === activeCycleId) {
+                return { ...cycle, finishedDate: new Date() };
+              } else {
+                return cycle;
+              }
+            })
+          );
+
+          setAmountSecondsPassed(totalSeconds);
+          clearInterval(interval);
+        } else {
+          setAmountSecondsPassed(secondsDifference);
+        }
       }, 1000);
     }
 
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle]);
+  }, [activeCycle, totalSeconds, activeCycleId]);
 
   const handleCreateNewCycle = (data: NewCycleFormData) => {
     const id = String(new Date().getTime());
@@ -101,7 +119,6 @@ export const Home = () => {
     );
   };
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
 
   const minutesAmount = Math.floor(currentSeconds / 60);
@@ -122,43 +139,8 @@ export const Home = () => {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action=''>
-        <FormContainer>
-          <label htmlFor='task'>Vou trabalhar em</label>
-          <TaskInput
-            id='task'
-            list='task-suggestions'
-            placeholder='Dê um nome para o seu projeto'
-            disabled={!!activeCycle}
-            {...register('task')}
-          />
-
-          <datalist id='task-suggestions'>
-            <option value='Minecraft Server List' />
-          </datalist>
-
-          <label htmlFor=''>durante</label>
-          <MinutesAmountInput
-            type='number'
-            id='minutesAmount'
-            placeholder='00'
-            disabled={!!activeCycle}
-            step={5}
-            min={5}
-            max={60}
-            {...register('minutesAmount', { valueAsNumber: true })}
-          />
-
-          <span>minutos.</span>
-        </FormContainer>
-
-        <CountdownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountdownContainer>
-
+        <NewmCycleForm />
+        <Countdown />
         {activeCycle ? (
           <StopCountdownButton onClick={handleInterruptCycle} type='button'>
             <HandPalm size={24} />
