@@ -41,10 +41,4 @@ export const TransactionsProvider = ({children}: TransactionsProvidersProps) => 
   );
 };
 
-// export function TransactionsProvider({ children }: TransactionsProvidersProps) {
-//   return (
-//     <TransactionContext.Provider value={{ transactions: [] }}>
-//       {children}
-//     </TransactionContext.Provider>
-//   );
-// }
+
