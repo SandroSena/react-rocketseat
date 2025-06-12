@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface Transaction {
@@ -19,8 +20,9 @@ interface TransactionsProvidersProps {
 
 export const TransactionsContext = createContext({} as TransactionContextType);
 
-export const TransactionsProvider = ({children}: TransactionsProvidersProps) => {
-  
+export const TransactionsProvider = ({
+  children,
+}: TransactionsProvidersProps) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   const loadTransactions = async () => {
@@ -40,5 +42,3 @@ export const TransactionsProvider = ({children}: TransactionsProvidersProps) => 
     </TransactionsContext.Provider>
   );
 };
-
-
